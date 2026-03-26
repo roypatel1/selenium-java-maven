@@ -8,6 +8,7 @@
             <class name="tests.TestFordF150"/>
             <class name="tests.TestChevroletColorado"/>
             <class name="tests.TestFilterYear"/>
+            <class name="tests.TestInvalidSearch"/>
         </classes>
     </test>
 </suite>

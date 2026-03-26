@@ -2,7 +2,6 @@ package utils;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,10 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
-
 import java.time.Duration;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class DriverFactory {
 
@@ -31,7 +27,7 @@ public class DriverFactory {
                     options.addArguments("--disable-dev-shm-usage");
                 } else if (env != null && env.equals("local")) {
                     //create directory in your local by executing this command mkdir -p /Users/rp/selenium-profile
-                    options.addArguments("user-data-dir=/Users/rp/selenium-profile");
+                    //options.addArguments("user-data-dir=/Users/rp/selenium-profile");
                     options.setPageLoadStrategy(PageLoadStrategy.EAGER);
                 }
                 if(ConfigReader.getHeadless()){

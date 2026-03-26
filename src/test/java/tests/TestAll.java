@@ -3,7 +3,6 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.BasePage;
 import pages.HomePage;
 import pages.SearchResultsPage;
 import utils.RetryAnalyzer;
@@ -20,7 +19,6 @@ public class TestAll extends BaseTest {
      */
     @Test(retryAnalyzer = RetryAnalyzer.class)
     public void testFordSearch() {
-        //new BasePage(driver).navigateToRBAuction();
         HomePage home = new HomePage(driver);
         home.search("Ford F-150");
 
@@ -33,7 +31,7 @@ public class TestAll extends BaseTest {
 
         SearchResultsPage results = new SearchResultsPage(driver);
         int count = results.getResultsCount();
-        Assert.assertTrue(count>=0, "Results count should be integer");
+        Assert.assertTrue(count >= 0, "Results count should be integer");
 
         Assert.assertTrue(
                 results.getFirstResultText().contains("Ford F-150"),
@@ -51,7 +49,6 @@ public class TestAll extends BaseTest {
      */
     @Test(retryAnalyzer = RetryAnalyzer.class)
     public void testChevroletColoradoSearch() {
-        //new BasePage(driver).navigateToRBAuction();
         HomePage home = new HomePage(driver);
         home.search("Chevrolet colorado");
 
@@ -64,7 +61,7 @@ public class TestAll extends BaseTest {
 
         SearchResultsPage results = new SearchResultsPage(driver);
         int count = results.getResultsCount();
-        Assert.assertTrue(count>=0, "Results count should be integer");
+        Assert.assertTrue(count >= 0, "Results count should be integer");
         Assert.assertTrue(results.getFirstResultText().contains("Chevrolet"), "First result does not contain expected text");
         Assert.assertTrue(results.getFirstResultText().contains("Colorado"), "First result does not contain expected text");
     }
@@ -79,7 +76,6 @@ public class TestAll extends BaseTest {
      */
     @Test(retryAnalyzer = RetryAnalyzer.class)
     public void testYearFilter() {
-        //new BasePage(driver).navigateToRBAuction();
         HomePage home = new HomePage(driver);
         home.search("F-150");
 
@@ -94,10 +90,10 @@ public class TestAll extends BaseTest {
 
         //verify before count before filter
         int beforeCount = results.getResultsCount();
-        Assert.assertTrue(beforeCount>=0, "Results count should be integer");
+        Assert.assertTrue(beforeCount >= 0, "Results count should be integer");
 
         //apply year filter
-        results.applyYearFilter("F-150","2010");
+        results.applyYearFilter("F-150", "2010");
         int afterCount = results.getResultsCount();
 
         //verify beforecount and aftercount after applying filter is different
@@ -114,7 +110,6 @@ public class TestAll extends BaseTest {
      */
     @Test(retryAnalyzer = RetryAnalyzer.class)
     public void testIncorrectSearch() {
-        //new BasePage(driver).navigateToRBAuction();
         HomePage home = new HomePage(driver);
         home.search("thiscardoesnotexist");
 
@@ -127,6 +122,6 @@ public class TestAll extends BaseTest {
 
         SearchResultsPage results = new SearchResultsPage(driver);
         int count = results.getResultsCount();
-        Assert.assertTrue(count==0, "Results count should be integer");
+        Assert.assertEquals(count, 0, "Results count should be integer");
     }
 }
