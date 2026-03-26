@@ -23,8 +23,6 @@ public class BaseTest {
     public void setup() {
         driver = DriverFactory.initDriver();
         driver.get("https://www.rbauction.com");
-        String currentUserAgent = (String) ((JavascriptExecutor) driver).executeScript("return navigator.userAgent;");
-        System.out.println("DEBUG: The browser is identifying as: " + currentUserAgent);
         BasePage basePage = new BasePage(driver);
         basePage.waitForSiteToBeReady();
         basePage.acceptCookies();
@@ -44,5 +42,10 @@ public class BaseTest {
             File dest = new File("screenshots/" + result.getName() + ".png");
             FileUtils.copyFile(src, dest);
         }
+    }
+
+    private void userAgent() {
+        String currentUserAgent = (String) ((JavascriptExecutor) driver).executeScript("return navigator.userAgent;");
+        System.out.println("DEBUG: The browser is identifying as: " + currentUserAgent);
     }
 }
