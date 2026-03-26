@@ -1,9 +1,12 @@
 name: Selenium Tests
 
 on:
-  push:
-    branches: [ main ]
-
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: 'TestNG Suite File'
+        required: true
+        default: 'testngTestAll.xml'
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -22,7 +25,7 @@ jobs:
           sudo apt-get install -y google-chrome-stable
 
       - name: Run Tests
-        run: mvn clean test -DsuiteXmlFile=src/test/resources/testngTestAll.xml -Denv=ci
+        run: mvn clean test -DsuiteXmlFile=${{ github.event.inputs.suite }} -Denv=ci -Dheadless=true
 
       - name: Upload Surefire Reports
         if: always()

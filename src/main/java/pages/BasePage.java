@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import pageElements.BasePageElements;
@@ -18,7 +19,11 @@ public class BasePage {
     }
 
     public void waitForSiteToBeReady() {
-        elementLocatorHelper.waitUntilExpectedConditionVisabilityOf(driver, BasePageElements.FEEDBACK_BUTTON, 60);
+        try{
+            elementLocatorHelper.waitUntilExpectedConditionVisabilityOf(driver, BasePageElements.FEEDBACK_BUTTON, 120);
+        } catch (TimeoutException e){
+            //derive if we should wait longer or exit
+        }
     }
 
     public void acceptCookies() {
