@@ -7,6 +7,12 @@ on:
         description: 'TestNG Suite File'
         required: true
         default: 'testngTestAll.xml'
+      headless:
+        description: 'Run in Headless Mode?'
+        required: true
+        type: boolean
+        default: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -22,10 +28,16 @@ jobs:
       - name: Install Chrome
         run: |
           sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+#         sudo apt-get install -y google-chrome-stable
+          sudo apt-get install -y google-chrome-stable xvfb
+
+#      - name: Run Tests
+#        run: mvn clean test -DsuiteXmlFile=${{ github.event.inputs.suite }} -Denv=ci -Dheadless=true
 
       - name: Run Tests
-        run: mvn clean test -DsuiteXmlFile=${{ github.event.inputs.suite }} -Denv=ci -Dheadless=true
+        run: |
+            xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" \
+            mvn clean test -DsuiteXmlFile=${{ github.event.inputs.suite }} -Denv=ci -Dheadless=${{ github.event.inputs.headless }}
 
       - name: Upload Surefire Reports
         if: always()
