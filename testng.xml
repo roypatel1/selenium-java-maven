@@ -1,0 +1,13 @@
+<suite name="RBAuction Suite">
+    <listeners>
+        <listener class-name="listeners.TestListener"/>
+    </listeners>
+
+    <test name="Tests">
+        <classes>
+            <class name="tests.TestFordF150"/>
+            <class name="tests.TestChevroletColorado"/>
+            <class name="tests.TestFilterYear"/>
+        </classes>
+    </test>
+</suite>
