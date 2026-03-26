@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       suite:
-        description: 'TestNG Suite File'
+        description: 'TestNG Suite File (e.g., testngTestAll.xml)'
         required: true
         default: 'testngTestAll.xml'
       headless:
-        description: 'Run in Headless Mode?'
+        description: 'Run in Headless Mode? (Set to false to bypass "Action Denied")'
         required: true
         type: boolean
         default: true
@@ -18,37 +18,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'maven'
 
-      - name: Install Chrome
+      - name: Install Chrome and Xvfb
         run: |
           sudo apt-get update
-#         sudo apt-get install -y google-chrome-stable
           sudo apt-get install -y google-chrome-stable xvfb
 
-#      - name: Run Tests
-#        run: mvn clean test -DsuiteXmlFile=${{ github.event.inputs.suite }} -Denv=ci -Dheadless=true
-
-      - name: Run Tests
+      - name: Run Maven Tests
+        # xvfb-run creates a virtual screen so "headless: false" works on CI
         run: |
-            xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" \
-            mvn clean test -DsuiteXmlFile=${{ github.event.inputs.suite }} -Denv=ci -Dheadless=${{ github.event.inputs.headless }}
+          xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" \
+          mvn clean test -DsuiteXmlFile=src/test/resources/${{ github.event.inputs.suite }} \
+          -Denv=ci \
+          -Dheadless=${{ github.event.inputs.headless }}
 
-      - name: Upload Surefire Reports
+      - name: Upload Test Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-report
-          path: target/surefire-reports
-
-      - name: Upload TestNG Reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: testng-report
-          path: target/test-output
+          name: reports
+          path: |
+            target/surefire-reports
+            target/test-output

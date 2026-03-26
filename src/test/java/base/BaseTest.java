@@ -1,6 +1,7 @@
 package base;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +23,8 @@ public class BaseTest {
     public void setup() {
         driver = DriverFactory.initDriver();
         driver.get("https://www.rbauction.com");
+        String currentUserAgent = (String) ((JavascriptExecutor) driver).executeScript("return navigator.userAgent;");
+        System.out.println("DEBUG: The browser is identifying as: " + currentUserAgent);
         BasePage basePage = new BasePage(driver);
         basePage.waitForSiteToBeReady();
         basePage.acceptCookies();
