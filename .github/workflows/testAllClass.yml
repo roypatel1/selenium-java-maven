@@ -41,10 +41,7 @@ jobs:
 #          -Denv=ci \
 #          -Dheadless=${{ github.event.inputs.headless }}
       - name: Run Maven Tests
-        run: mvn clean test \
-          -DsuiteXmlFile=src/test/resources/${{ github.event.inputs.suite }} \
-          -Denv=ci \
-          -Dheadless=${{ github.event.inputs.headless }}
+        run: mvn clean test -DsuiteXmlFile=src/test/resources/${{ github.event.inputs.suite }} -Denv=ci -Dheadless=${{ github.event.inputs.headless }}
 
       - name: Upload Test Reports
         if: always()
