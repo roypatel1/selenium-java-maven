@@ -35,6 +35,21 @@ public class DriverFactory {
                 options.addArguments("--disable-geolocation");
                 options.addArguments("--lang=en");
                 options.addArguments("--disable-blink-features=AutomationControlled");
+                /*
+                // Removes the "Chrome is being controlled by automated software" notification
+                options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+                options.setExperimentalOption("useAutomationExtension", false);
+                // Hides the automation flag from the browser's internal engine
+                options.addArguments("--disable-blink-features=AutomationControlled");
+                // Replace this with the User Agent you copied from chrome://version/
+                options.addArguments("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36");
+                options.addArguments("--disable-blink-features=AutomationControlled");
+                options.addArguments("--disable-notifications");
+                options.addArguments("--disable-geolocation");
+                options.addArguments("--remote-allow-origins=*");
+                options.addArguments("--lang=en");
+                options.addArguments("--disable-infobars");
+                 */
                 WebDriverManager.chromedriver().setup();
                 driver.set(new ChromeDriver(options));
                 driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
@@ -82,39 +97,4 @@ public class DriverFactory {
         driver.get().quit();
         driver.remove();
     }
-
-    /* ChromeOptions options = new ChromeOptions();
-                String env = ConfigReader.getEnv();
-                if (env != null && env.equals("ci")) {
-                    options.addArguments("--no-sandbox");
-                    options.addArguments("--disable-dev-shm-usage");
-                } else if (env != null && env.equals("local")) {
-                    //create directory in your local by executing this command mkdir -p /Users/rp/selenium-profile
-                    //options.addArguments("user-data-dir=/Users/rp/selenium-profile");
-                    options.setPageLoadStrategy(PageLoadStrategy.EAGER);
-                }
-                if(ConfigReader.getHeadless()){
-                    options.addArguments("--headless=new");
-                }
-                // Removes the "Chrome is being controlled by automated software" notification
-                options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
-                options.setExperimentalOption("useAutomationExtension", false);
-                // Hides the automation flag from the browser's internal engine
-                options.addArguments("--disable-blink-features=AutomationControlled");
-                // Replace this with the User Agent you copied from chrome://version/
-                options.addArguments("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36");
-                options.addArguments("--disable-blink-features=AutomationControlled");
-                options.addArguments("--start-maximized");
-                options.addArguments("--disable-notifications");
-                options.addArguments("--disable-geolocation");
-                options.addArguments("--remote-allow-origins=*");
-                options.addArguments("--lang=en");
-                options.addArguments("--disable-infobars");
-
-                WebDriverManager.chromedriver().setup();
-
-                driver.set(new ChromeDriver(options));
-                driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-                driver.get().manage().window().maximize();
-                return driver.get();*/
 }

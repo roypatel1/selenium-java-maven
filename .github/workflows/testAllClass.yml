@@ -33,13 +33,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable xvfb
 
-#      - name: Run Maven Tests
-#        # xvfb-run creates a virtual screen so "headless: false" works on CI
-#        run: |
-#          xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" \
-#          mvn clean test -DsuiteXmlFile=src/test/resources/${{ github.event.inputs.suite }} \
-#          -Denv=ci \
-#          -Dheadless=${{ github.event.inputs.headless }}
       - name: Run Maven Tests
         run: mvn clean test -DsuiteXmlFile=src/test/resources/${{ github.event.inputs.suite }} -Denv=ci -Dheadless=${{ github.event.inputs.headless }}
 
