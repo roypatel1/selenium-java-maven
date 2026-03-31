@@ -33,7 +33,7 @@ public class BasePage {
     }
 
     public void acceptEnglishLanguage() {
-        if (elementLocatorHelper.isElementDisplayed(driver, basePageElements.acceptEnglishLanguage, 5)) {
+        if (elementLocatorHelper.isElementDisplayed(driver, basePageElements.acceptEnglishLanguage, 2)) {
             basePageElements.acceptEnglishLanguage.click();
         }
     }

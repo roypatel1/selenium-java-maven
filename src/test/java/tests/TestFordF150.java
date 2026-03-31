@@ -28,6 +28,7 @@ public class TestFordF150 extends BaseTest {
         //click search button and verify url is changed
         home.clickSearchEnter();
         Assert.assertTrue(driver.getCurrentUrl().contains("search?freeText"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("F-150"));
 
         SearchResultsPage results = new SearchResultsPage(driver);
         int count = results.getResultsCount();

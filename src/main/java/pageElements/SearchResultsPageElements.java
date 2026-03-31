@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SearchResultsPageElements {
 
-    @FindBy(xpath = "//*[@data-testid=\"non-cat-header\"]")
+    @FindBy(xpath = "//*[@data-testid=\"search-count-header\"]")
     public WebElement resultsCount;
 
     @FindBy(xpath = "//*[@data-testid=\"item-card-shared-component\"]")
@@ -19,8 +19,14 @@ public class SearchResultsPageElements {
     @FindBy(xpath = "//*[@data-testid=\"search filter button\"]")
     public WebElement filter;
 
-    @FindBy(xpath = "//*[@data-testid=\"advanced-search-manufactureYearRange\"]")
-    public WebElement filterInputYear;
+    @FindBy(xpath = "//*[@id=\"manufactureYearRange-header\"]//*[@data-testid=\"ExpandMoreIcon\"]")
+    public WebElement filterYearExpand;
+
+    @FindBy(xpath = "//*[@id=\"manufactureYearRange_min\"]")
+    public WebElement filterInputYearFrom;
+
+    @FindBy(xpath = "//*[@id=\"manufactureYearRange_max\"]")
+    public WebElement filterInputYearTo;
 
     @FindBy(xpath = "//*[@data-testid=\"advanced-search-freeText\"]")
     public WebElement filterKeywordInput;

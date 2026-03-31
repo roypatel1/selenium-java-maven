@@ -28,6 +28,7 @@ public class TestInvalidSearch extends BaseTest {
         //click search button and verify url is changed
         home.clickSearchEnter();
         Assert.assertTrue(driver.getCurrentUrl().contains("search?freeText"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("thiscardoesnotexist"));
 
         SearchResultsPage results = new SearchResultsPage(driver);
         int count = results.getResultsCount();

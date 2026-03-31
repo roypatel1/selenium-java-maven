@@ -28,15 +28,12 @@ public class TestAll extends BaseTest {
         //click search button and verify url is changed
         home.clickSearchEnter();
         Assert.assertTrue(driver.getCurrentUrl().contains("search?freeText"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("F-150"));
 
         SearchResultsPage results = new SearchResultsPage(driver);
         int count = results.getResultsCount();
         Assert.assertTrue(count >= 0, "Results count should be integer");
-
-        Assert.assertTrue(
-                results.getFirstResultText().contains("Ford F-150"),
-                "First result does not contain expected text"
-        );
+        Assert.assertTrue(results.waitForFirstResultToContainSearchTerm("Ford F-150"), "First result did not update to 'Ford F-150' within 10 seconds");
     }
 
     /**
@@ -58,6 +55,7 @@ public class TestAll extends BaseTest {
         //click search button and verify url is changed
         home.clickSearchEnter();
         Assert.assertTrue(driver.getCurrentUrl().contains("search?freeText"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("Chevrolet"));
 
         SearchResultsPage results = new SearchResultsPage(driver);
         int count = results.getResultsCount();
@@ -84,7 +82,6 @@ public class TestAll extends BaseTest {
 
         //click search button and verify url is changed
         home.clickSearchEnter();
-        Assert.assertTrue(driver.getCurrentUrl().contains("search?freeText"));
 
         SearchResultsPage results = new SearchResultsPage(driver);
 
@@ -93,11 +90,11 @@ public class TestAll extends BaseTest {
         Assert.assertTrue(beforeCount >= 0, "Results count should be integer");
 
         //apply year filter
-        results.applyYearFilter("F-150", "2010");
+        results.applyYearFilter("2010", "2026");
         int afterCount = results.getResultsCount();
 
         //verify beforecount and aftercount after applying filter is different
-        Assert.assertNotEquals(beforeCount, afterCount);
+        Assert.assertNotEquals(beforeCount, afterCount, "value for before count was" + beforeCount + " and value for after count was " + afterCount);
     }
 
     /**
@@ -118,7 +115,7 @@ public class TestAll extends BaseTest {
 
         //click search button and verify url is changed
         home.clickSearchEnter();
-        Assert.assertTrue(driver.getCurrentUrl().contains("search?freeText"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("thiscardoesnotexist"));
 
         SearchResultsPage results = new SearchResultsPage(driver);
         int count = results.getResultsCount();

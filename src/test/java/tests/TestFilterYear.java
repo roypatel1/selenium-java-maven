@@ -36,10 +36,10 @@ public class TestFilterYear extends BaseTest {
         Assert.assertTrue(beforeCount>=0, "Results count should be integer");
 
         //apply year filter
-        results.applyYearFilter("F-150","2010");
+        results.applyYearFilter("2010", "2026");
         int afterCount = results.getResultsCount();
 
         //verify beforecount and aftercount after applying filter is different
-        Assert.assertNotEquals(beforeCount, afterCount);
+        Assert.assertNotEquals(beforeCount, afterCount, "value for before count was" + beforeCount + " and value for after count was " + afterCount);
     }
 }

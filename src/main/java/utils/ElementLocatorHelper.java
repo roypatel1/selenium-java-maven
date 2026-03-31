@@ -5,7 +5,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
 import java.time.Duration;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -308,7 +307,7 @@ public class ElementLocatorHelper {
         js.executeScript("window.scrollBy(0,750)", "");
     }
 
-    public void waitSleep(int i) {
+    public void waitExplicitly(WebDriver driver, int i) {
         try {
             Thread.sleep(i);
         } catch (InterruptedException e) {

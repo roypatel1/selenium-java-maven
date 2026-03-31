@@ -1,12 +1,10 @@
 package pages;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import pageElements.HomePageElements;
 import utils.ElementLocatorHelper;
+import utils.JsUtils;
 
 public class HomePage {
 
@@ -24,22 +22,8 @@ public class HomePage {
         elementLocatorHelper.waitUntilPageLoaded(driver);
         elementLocatorHelper.scrollToTopOfPage(driver);
         elementLocatorHelper.waitForClickabilityOfAndClick(driver, homePageElements.searchBox, 30);
-        forceClearSearchBox();
-        homePageElements.searchBoxActive.sendKeys(string);
-    }
-
-    public void forceClearSearchBox() {
-
-        WebElement input = homePageElements.searchBoxActive;
-        // Clear using JS (most reliable)
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].value='';", input);
-        // Trigger React change event
-        js.executeScript("arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", input);
-
-        //following is an alternative approach to clear the search box, but it may not work consistently across all browsers and platforms, especially on MacOS where the Command key is used instead of Control for select all operations.
-        //homePageElements.searchBoxActive.sendKeys(Keys.chord(Keys.COMMAND, "a"));
-        //homePageElements.searchBoxActive.sendKeys(Keys.DELETE);
+        new JsUtils().forceClearSearchBoxNew(driver,homePageElements.searchBox);
+        homePageElements.searchBox.sendKeys(string);
     }
 
     public Boolean searchButtonIsDisplayed() {
@@ -49,6 +33,6 @@ public class HomePage {
     public void clickSearchEnter() {
         homePageElements.searchButton.click();
         elementLocatorHelper.waitUntilPageUrlContains(driver, "search?freeText");
+        elementLocatorHelper.waitExplicitly(driver, 5000);
     }
-
 }
