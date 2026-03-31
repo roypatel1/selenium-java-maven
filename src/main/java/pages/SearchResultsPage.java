@@ -54,6 +54,7 @@ public class SearchResultsPage {
 
     public void applyYearFilterUrlChange() {
         elementLocatorHelper.waitUntilPageUrlContains(driver, "manufactureYearRange");
+        elementLocatorHelper.waitExplicitly(driver,2000);
     }
 
     public boolean waitForFirstResultToContainSearchTerm(String string) {
